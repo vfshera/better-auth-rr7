@@ -14,8 +14,8 @@ const stringBoolean = z.coerce
 
 const EnvSchema = z.object({
   DB_MIGRATING: stringBoolean,
-  GITHUB_CLIENT_ID: z.string(),
-  GITHUB_CLIENT_SECRET: z.string(),
+  GITHUB_CLIENT_ID: z.string().min(1),
+  GITHUB_CLIENT_SECRET: z.string().min(1),
 });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;
