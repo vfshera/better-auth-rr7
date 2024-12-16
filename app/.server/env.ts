@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import Table from "cli-table3";
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 
@@ -24,8 +25,17 @@ expand(config());
 const { data: env, error } = EnvSchema.safeParse(process.env);
 
 if (error) {
+  const table = new Table({ head: ["Variable", "Errors"] });
+
+  const flatErrors = error.flatten().fieldErrors;
+
+  for (const [key, value] of Object.entries(flatErrors)) {
+    if (value) {
+      table.push([key, value.map((v) => `\u00B7 ${v}`).join("\n")]);
+    }
+  }
   console.error("❌ Invalid env:");
-  console.error(JSON.stringify(error.flatten().fieldErrors, null, 2));
+  console.log(table.toString());
   process.exit(1);
 }
 
