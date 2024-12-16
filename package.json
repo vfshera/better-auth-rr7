@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.0.2",
-    "@react-router/remix-config-routes-adapter": "0.0.0-nightly-bf7ecb711-20240911",
+    "@react-router/remix-routes-option-adapter": "^7.0.2",
     "@types/node": "^20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
