@@ -4,6 +4,8 @@ import { db } from "../db";
 import env from "../env";
 
 export const auth = betterAuth({
+  basePath: "/api/auth",
+  baseURL: env.BETTER_AUTH_URL,
   user: { modelName: "users" },
   session: { modelName: "sessions" },
   account: { modelName: "accounts" },
