@@ -12,11 +12,25 @@ const stringBoolean = z.coerce
   })
   .default("false");
 
-const EnvSchema = z.object({
-  DB_MIGRATING: stringBoolean,
-  GITHUB_CLIENT_ID: z.string().min(1),
-  GITHUB_CLIENT_SECRET: z.string().min(1),
-});
+const EnvSchema = z
+  .object({
+    NODE_ENV: z
+      .enum(["development", "production", "test"])
+      .default("development"),
+    DB_MIGRATING: stringBoolean,
+    BETTER_AUTH_SECRET: z.string().min(1),
+    BETTER_AUTH_URL: z.string().min(1),
+    GITHUB_CLIENT_ID: z.string().min(1),
+    GITHUB_CLIENT_SECRET: z.string().min(1),
+  })
+  .transform((env) => {
+    return {
+      ...env,
+      PROD: env.NODE_ENV === "production",
+      DEV: env.NODE_ENV === "development",
+      TEST: env.NODE_ENV === "test",
+    };
+  });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;
 
