@@ -1,18 +1,20 @@
-# Welcome to React Router!
+# React Router + Better Auth
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This project shows how to use [Better Auth](https://www.better-auth.com/) in [React Router v7](https://reactrouter.com/) project.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Whats implemented:
 
-## Features
+- Email Password Login | [Docs](https://www.better-auth.com/docs/authentication/email-password)
+- Social/Oauth Login with Github | [Docs](https://www.better-auth.com/docs/authentication/github)
+- Simple UI with [shadcn ui](https://ui.shadcn.com/) and [Tailwind CSS](https://tailwindcss.com/)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+Libraries used:
+
+- [Drizzle ORM](https://orm.drizzle.team/)
+- [Sonner Toasts](https://sonner.emilkowal.ski/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+- [Remix Flat Routes](https://github.com/kiliman/remix-flat-routes)
 
 ## Getting Started
 
@@ -21,7 +23,7 @@ A modern, production-ready template for building full-stack React applications u
 Install the dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Development
@@ -29,7 +31,7 @@ npm install
 Start the development server with HMR:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Your application will be available at `http://localhost:5173`.
@@ -39,45 +41,10 @@ Your application will be available at `http://localhost:5173`.
 Create a production build:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
 
 If you're familiar with deploying Node applications, the built-in app server is production-ready.
 
@@ -90,11 +57,3 @@ Make sure to deploy the output of `npm run build`
 │   ├── client/    # Static assets
 │   └── server/    # Server-side code
 ```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
