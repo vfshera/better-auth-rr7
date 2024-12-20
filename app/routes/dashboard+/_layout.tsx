@@ -64,7 +64,9 @@ const items = [
     icon: Settings,
   },
 ];
-export default function DashboardLayout({ loaderData }: Route.ComponentProps) {
+export default function DashboardLayout({
+  loaderData: { user },
+}: Route.ComponentProps) {
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -106,7 +108,12 @@ export default function DashboardLayout({ loaderData }: Route.ComponentProps) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <SidebarMenuButton>
-                      <User2 /> {loaderData.user.name}
+                      {user.image ? (
+                        <img src={user.image} className="size-8 rounded-full" />
+                      ) : (
+                        <User2 />
+                      )}
+                      {user.name}
                       <ChevronUp className="ml-auto" />
                     </SidebarMenuButton>
                   </DropdownMenuTrigger>
