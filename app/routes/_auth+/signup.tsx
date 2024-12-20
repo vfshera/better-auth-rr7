@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { authClient } from "~/lib/auth.client";
-import { signupSchema, type SignupSchemaType } from "~/validation/auth.schema";
+import { signupSchema, type SignupSchemaType } from "~/schemas/auth.schema";
 import type { Route } from "./+types/signup";
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Sign Up" }];
