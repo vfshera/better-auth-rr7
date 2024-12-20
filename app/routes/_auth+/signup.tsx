@@ -1,11 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form, Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { authClient } from "~/lib/auth.client";
 import { signupSchema, type SignupSchemaType } from "~/validation/auth.schema";
-
+import type { Route } from "./+types/signup";
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Sign Up" }];
+}
 export default function SignUp() {
   const {
     register,
@@ -24,7 +28,7 @@ export default function SignUp() {
         navigate("/dashboard");
       },
       onError: (ctx) => {
-        alert(ctx.error);
+        toast.error(ctx.error.message);
       },
     });
   };

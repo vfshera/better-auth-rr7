@@ -6,7 +6,12 @@ import { Button } from "~/components/ui/button";
 import { useForm } from "react-hook-form";
 import { loginSchema, type LoginSchemaType } from "~/validation/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import type { Route } from "./+types/signin";
 
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Sign In" }];
+}
 export default function SignIn() {
   const {
     register,
@@ -25,7 +30,7 @@ export default function SignIn() {
         navigate("/dashboard");
       },
       onError: (ctx) => {
-        console.log(ctx.error);
+        toast.error(ctx.error.message);
       },
     });
   };
