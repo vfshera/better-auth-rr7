@@ -35,6 +35,21 @@ export default function SignIn() {
     });
   };
 
+  const handleGithubSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+      callbackURL: "/dashboard",
+      fetchOptions: {
+        onSuccess: (ctx) => {
+          navigate("/dashboard");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      },
+    });
+  };
+
   return (
     <div>
       <h1 className="mb-2 text-3xl  text-gray-900 font-semibold">Sign In</h1>
@@ -90,7 +105,9 @@ export default function SignIn() {
         </div>
         <Button
           disabled={isSubmitting}
+          type="button"
           className="mt-6 flex items-center justify-center gap-2 w-full bg-black py-5 uppercase"
+          onClick={handleGithubSignIn}
         >
           <GithubIcon className="size-8" />
           sign in with github
