@@ -1,6 +1,8 @@
 import { requireAuth } from "~/.server/auth/utils";
 import type { Route } from "./+types/account";
-
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Account" }];
+}
 export async function loader({ request }: Route.LoaderArgs) {
   const { user } = await requireAuth(request);
 

@@ -1,8 +1,17 @@
-import { Outlet } from "react-router";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Link, Outlet, useNavigate } from "react-router";
+import {
+  Calendar,
+  ChevronUp,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  User2,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -11,12 +20,27 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from "~/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import type { Route } from "./+types/_layout";
+import { requireAuth } from "~/.server/auth/utils";
+import { authClient } from "~/lib/auth.client";
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const { user } = await requireAuth(request);
+
+  return { user };
+}
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
+    title: "Dashboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
@@ -40,10 +64,21 @@ const items = [
     icon: Settings,
   },
 ];
-export default function DashboardLayout() {
+export default function DashboardLayout({ loaderData }: Route.ComponentProps) {
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          navigate("/");
+        },
+      },
+    });
+  }
   return (
     <SidebarProvider>
-      <div>
+      <div className="flex  w-full">
         <Sidebar>
           <SidebarContent>
             <SidebarGroup>
@@ -53,10 +88,10 @@ export default function DashboardLayout() {
                   {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <a href={item.url}>
+                        <Link to={item.url}>
                           <item.icon />
                           <span>{item.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -64,9 +99,41 @@ export default function DashboardLayout() {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
+
+          <SidebarFooter>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <SidebarMenuButton>
+                      <User2 /> {loaderData.user.name}
+                      <ChevronUp className="ml-auto" />
+                    </SidebarMenuButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    side="top"
+                    className="w-[--radix-popper-anchor-width]"
+                  >
+                    <DropdownMenuItem
+                      onClick={() => navigate("/dashboard/account")}
+                    >
+                      <span>Account</span>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="hover:bg-red-600 hover:text-white text-red-600 transition-colors"
+                    >
+                      <span>Sign out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarFooter>
         </Sidebar>
 
-        <main>
+        <main className="flex-1">
           <Outlet />
         </main>
       </div>

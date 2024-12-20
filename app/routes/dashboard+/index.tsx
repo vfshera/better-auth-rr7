@@ -1,8 +1,12 @@
 import type { Route } from "./+types/index";
-export async function loader({}: Route.LoaderArgs) {
-  return {};
+export function meta({ location }: Route.MetaArgs) {
+  return [{ title: "Dashboard" }];
 }
 
 export default function Dashboard(props: Route.ComponentProps) {
-  return <div>page</div>;
+  return (
+    <div className="p-5">
+      <h1 className="text-2xl font-semibold">Dashboard</h1>
+    </div>
+  );
 }
