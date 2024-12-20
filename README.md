@@ -5,7 +5,7 @@ This project shows how to use [Better Auth](https://www.better-auth.com/) in [Re
 Whats implemented:
 
 - Email Password Login | [Docs](https://www.better-auth.com/docs/authentication/email-password)
-- Social/Oauth Login with Github | [Docs](https://www.better-auth.com/docs/authentication/github)
+- Social/OAuth Login with Github | [Docs](https://www.better-auth.com/docs/authentication/github)
 - Simple UI with [shadcn ui](https://ui.shadcn.com/) and [Tailwind CSS](https://tailwindcss.com/)
 
 Libraries used:
